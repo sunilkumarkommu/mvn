@@ -1,6 +1,8 @@
 name: Scala CI
 
 on:
+  schedule:
+    - cron: '*/1 * * * *'
   push:
     branches: [ master ]
   pull_request:
