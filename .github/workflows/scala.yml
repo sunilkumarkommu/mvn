@@ -13,12 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: dawidd6/action-send-mail@v2
+      - name: failed step
+        run: |
+          exit 1
       - name: Send mail
         if: failure()
         uses: dawidd6/action-send-mail@v2
         with:
-          content_type: text/plain
           server_address: smtp.gmail.com
           server_port: 465
           username: sunilbadboy24@gmail.com
