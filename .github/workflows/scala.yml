@@ -18,7 +18,7 @@ jobs:
           exit 1
       - name: Send mail
         if: failure()
-        uses: dawidd6/action-send-mail@v2
+        uses: sunilbadboy24/action-send-mail@v2
         with:
           server_address: smtp.gmail.com
           server_port: 465
