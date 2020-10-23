@@ -18,6 +18,7 @@ jobs:
         if: failure()
         uses: dawidd6/action-send-mail@v2
         with:
+          content_type: text/plain
           server_address: smtp.gmail.com
           server_port: 465
           username: sunilbadboy24@gmail.com
