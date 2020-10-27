@@ -22,7 +22,7 @@ jobs:
         exit 1
     - name: Send mail
       if: failure()
-      uses: mvn/action-send-mail@v2
+      uses: actions/checkout@v2
       with:
         server_address: smtp.gmail.com
         server_port: 465
