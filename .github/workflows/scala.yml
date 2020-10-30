@@ -26,8 +26,6 @@ jobs:
       with:
         server_address: smtp.gmail.com
         server_port: 465
-        username: krishnagalipatam@gmail.com
-        password: 9391214859
         subject: Github Actions job result
         body: Build job of ${{github.repository}} Failed!
-        to: vamshi5590@gmail.com
+        to: sunilbadboy24@gmail.com
