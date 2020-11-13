@@ -1,6 +1,0 @@
-sunil
-hello 
-world
-my
-world 
-is different
