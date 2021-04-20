@@ -47,8 +47,8 @@
         </execution>
     </executions>
     <configuration>
-        <configLocation>duraspace-checkstyle/checkstyle.xml</configLocation>
-        <suppressionsLocation>vitro-checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+        <configLocation>check.xml</configLocation>
+        
         <encoding>UTF-8</encoding>
         <consoleOutput>true</consoleOutput>
         <logViolationsToConsole>true</logViolationsToConsole>
