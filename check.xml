@@ -1,84 +1,186 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suppressions PUBLIC
-    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
-    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
-<suppressions>
-  <!-- For Debug Only -->
-  <!-- <suppress files=".+\.(?:txt|xml|csv|sh|thrift|html|sql|eot|ttf|woff|css|png|java|jar|zip|war|class|tar|bin|gif|jpg|jpeg|properties)$" checks=".*"/> -->	
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
-  <!-- Suppressions for Javadoc in Test classes -->
-  <suppress checks="JavadocMethod" files="src[/\\]test[/\\]java"/>
-  <suppress checks="JavadocType" files="src[/\\]test[/\\]java"/>
+<!--
+  Checkstyle configuration that checks the sun coding conventions from:
+    - the Java Language Specification at
+      https://docs.oracle.com/javase/specs/jls/se11/html/index.html
+    - the Sun Code Conventions at https://www.oracle.com/java/technologies/javase/codeconventions-contents.html
+    - the Javadoc guidelines at
+      https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html
+    - the JDK Api documentation https://docs.oracle.com/en/java/javase/11/
+    - some best practices
+  Checkstyle is very configurable. Be sure to read the documentation at
+  https://checkstyle.org (or in your downloaded distribution).
+  Most Checks are configurable, be sure to consult the documentation.
+  To completely disable a check, just comment it out or delete it from the file.
+  To suppress certain violations please review suppression filters.
+  Finally, it is worth reading the documentation.
+-->
 
-  <!-- Suppressions for generated source files -->
-  <suppress checks=".*" files="[/\\]target[/\\]" />
+<module name="Checker">
+  <!--
+      If you set the basedir property below, then all reported file
+      names will be relative to the specified directory. See
+      https://checkstyle.org/config.html#Checker
+      <property name="basedir" value="${basedir}"/>
+  -->
+  <property name="severity" value="error"/>
 
-  <!-- Disables Javadoc requirement for all public methods. This suppression
-       is not recommended, but may be needed (temporarily) to allow checkstyle
-       to be applied to existing codebases. -->
-  <suppress checks="JavadocMethod" files="src[/\\]main[/\\]java"/>
+  <property name="fileExtensions" value="java, properties, xml"/>
 
-  <!-- No tab characters ('\t') allowed in the source code -->
-  <suppress checks="FileTabCharacter" files="src"/>
+  <!-- Excludes all 'module-info.java' files              -->
+  <!-- See https://checkstyle.org/config_filefilters.html -->
+  <module name="BeforeExecutionExclusionFileFilter">
+    <property name="fileNamePattern" value="module\-info\.java$"/>
+  </module>
 
-  <!-- No Trailing Whitespace, except on lines that only have an asterisk (e.g. Javadoc comments) -->
-  <suppress checks="RegexpSingleline" files=".*\.java"/>
+  <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
+  <module name="SuppressionFilter">
+    <property name="file" value="${org.checkstyle.sun.suppressionfilter.config}"
+              default="checkstyle-suppressions.xml" />
+    <property name="optional" value="true"/>
+  </module>
 
-  <!-- Maximum line length is 120 characters -->
-  <suppress checks="LineLength" files=".*\.java"/>
+  <!-- Checks that a package-info.java file exists for each package.     -->
+  <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
+  <module name="JavadocPackage"/>
 
-  <!-- Highlight any TODO or FIXME comments in info messages -->
-  <suppress checks="TodoComment" files=".*\.java"/>
+  <!-- Checks whether files end with a new line.                        -->
+  <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
+  <module name="NewlineAtEndOfFile"/>
 
-  <!-- ##### Import statement requirements ##### -->
-  <!-- Star imports (e.g. import java.util.*) are NOT ALLOWED -->
-  <suppress checks="AvoidStarImport" files=".*\.java"/>
-  <!-- Redundant import statements are NOT ALLOWED -->
-  <suppress checks="RedundantImport" files=".*\.java"/>
-  <!-- Unused import statements are NOT ALLOWED -->
-  <suppress checks="UnusedImports" files=".*\.java"/>
-  <!-- Ensure imports appear alphabetically and grouped -->
-  <suppress checks="CustomImportOrder" files=".*\.java"/>
+  <!-- Checks that property files contain the same keys.         -->
+  <!-- See https://checkstyle.org/config_misc.html#Translation -->
+  <module name="Translation"/>
 
+  <!-- Checks for Size Violations.                    -->
+  <!-- See https://checkstyle.org/config_sizes.html -->
+  <module name="FileLength"/>
+  <module name="LineLength">
+    <property name="fileExtensions" value="java"/>
+  </module>
 
-  <!-- ##### Requirements for K&R Style braces ##### -->
-  <!-- Code blocks MUST HAVE braces, even single line statements (if, while, etc) -->
-  <suppress checks="NeedBraces" files=".*\.java"/>
-  <!-- Left braces should be at the end of current line (default value)-->
-  <suppress checks="LeftCurly" files=".*\.java"/>
-  <!-- Right braces should be on start of a new line (default value) -->
-  <suppress checks="RightCurly" files=".*\.java"/>
+  <!-- Checks for whitespace                               -->
+  <!-- See https://checkstyle.org/config_whitespace.html -->
+  <module name="FileTabCharacter"/>
 
-  <!-- ##### Indentation / Whitespace requirements ##### -->
-  <!-- Require 4-space indentation (default value) -->
-  <suppress checks="Indentation" files=".*\.java"/>
-  <!-- Whitespace should exist around all major tokens -->
-  <suppress checks="WhitespaceAround" files=".*\.java"/>
+  <!-- Miscellaneous other checks.                   -->
+  <!-- See https://checkstyle.org/config_misc.html -->
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="minimum" value="0"/>
+    <property name="maximum" value="0"/>
+    <property name="message" value="Line has trailing spaces."/>
+  </module>
 
-  <!-- Validate whitespace around Generics (angle brackets) per typical conventions
-       http://checkstyle.sourceforge.net/config_whitespace.html#GenericWhitespace -->
-  <suppress checks="GenericWhitespace" files=".*\.java"/>
+  <!-- Checks for Headers                                -->
+  <!-- See https://checkstyle.org/config_header.html   -->
+  <!-- <module name="Header"> -->
+  <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
+  <!--   <property name="fileExtensions" value="java"/> -->
+  <!-- </module> -->
 
-  <!-- ##### Blank line requirements ##### -->
-  <suppress checks="EmptyLineSeparator" files=".*\.java"/>
+  <module name="TreeWalker">
 
-  <!-- ##### Requirements for "switch" statements ##### -->
-  <!-- "switch" statements MUST have a "default" clause -->
-  <suppress checks="MissingSwitchDefault" files=".*\.java"/>
-  <!-- "case" clauses in switch statements MUST include break, return, throw or continue -->
-  <suppress checks="FallThrough" files=".*\.java"/>
+    <!-- Checks for Javadoc comments.                     -->
+    <!-- See https://checkstyle.org/config_javadoc.html -->
+    <module name="InvalidJavadocPosition"/>
+    <module name="JavadocMethod"/>
+    <module name="JavadocType"/>
+    <module name="JavadocVariable"/>
+    <module name="JavadocStyle"/>
+    <module name="MissingJavadocMethod"/>
 
-  <!-- ##### Other / Miscellaneous requirements ##### -->
-  <!-- Require utility classes do not have a public constructor -->
-  <suppress checks="HideUtilityClassConstructor" files=".*\.java"/>
-  <!-- Require each variable declaration is its own statement on its own line -->
-  <suppress checks="MultipleVariableDeclarations" files=".*\.java"/>
-  <!-- Each line of code can only include one statement -->
-  <suppress checks="OneStatementPerLine" files=".*\.java"/>
-  <!-- Require that "catch" statements are not empty (must at least contain a comment) -->
-  <suppress checks="EmptyCatchBlock" files=".*\.java"/>
+    <!-- Checks for Naming Conventions.                  -->
+    <!-- See https://checkstyle.org/config_naming.html -->
+    <module name="ConstantName"/>
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="MethodName"/>
+    <module name="PackageName"/>
+    <module name="ParameterName"/>
+    <module name="StaticVariableName"/>
+    <module name="TypeName"/>
 
-  <!-- Require that 'final' used on variables and parameters -->
-  <suppress checks="FinalLocalVariable" files=".*.java"/>
-  <suppress checks="FinalParameters" files=".*.java"/>
-</suppressions>
+    <!-- Checks for imports                              -->
+    <!-- See https://checkstyle.org/config_imports.html -->
+    <module name="AvoidStarImport"/>
+    <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+    <module name="RedundantImport"/>
+    <module name="UnusedImports">
+      <property name="processJavadoc" value="false"/>
+    </module>
+
+    <!-- Checks for Size Violations.                    -->
+    <!-- See https://checkstyle.org/config_sizes.html -->
+    <module name="MethodLength"/>
+    <module name="ParameterNumber"/>
+
+    <!-- Checks for whitespace                               -->
+    <!-- See https://checkstyle.org/config_whitespace.html -->
+    <module name="EmptyForIteratorPad"/>
+    <module name="GenericWhitespace"/>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="OperatorWrap"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+
+    <!-- Modifier Checks                                    -->
+    <!-- See https://checkstyle.org/config_modifiers.html -->
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+
+    <!-- Checks for blocks. You know, those {}'s         -->
+    <!-- See https://checkstyle.org/config_blocks.html -->
+    <module name="AvoidNestedBlocks"/>
+    <module name="EmptyBlock"/>
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
+
+    <!-- Checks for common coding problems               -->
+    <!-- See https://checkstyle.org/config_coding.html -->
+    <module name="EmptyStatement"/>
+    <module name="EqualsHashCode"/>
+    <module name="HiddenField"/>
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <module name="MagicNumber"/>
+    <module name="MissingSwitchDefault"/>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+
+    <!-- Checks for class design                         -->
+    <!-- See https://checkstyle.org/config_design.html -->
+    <module name="DesignForExtension"/>
+    <module name="FinalClass"/>
+    <module name="HideUtilityClassConstructor"/>
+    <module name="InterfaceIsType"/>
+    <module name="VisibilityModifier"/>
+
+    <!-- Miscellaneous other checks.                   -->
+    <!-- See https://checkstyle.org/config_misc.html -->
+    <module name="ArrayTypeStyle"/>
+    <module name="FinalParameters"/>
+    <module name="TodoComment"/>
+    <module name="UpperEll"/>
+
+    <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
+    <module name="SuppressionXpathFilter">
+      <property name="file" value="${org.checkstyle.sun.suppressionxpathfilter.config}"
+                default="checkstyle-xpath-suppressions.xml" />
+      <property name="optional" value="true"/>
+    </module>
+
+  </module>
+
+</module>
