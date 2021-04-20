@@ -26,7 +26,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
+<build>
+    <plugins>
+        <plugin>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>  
+      </dependency>
+  </dependencies>	
+	<groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-checkstyle-plugin</artifactId>
       <version>3.1.1</version>
        <configuration>
@@ -45,7 +54,8 @@
 				</goals>
 			</execution>
 		</executions>
-    </dependency>
-  </dependencies>	
-	
+	</plugin>
+   </plugins>
+</build>
+        
   </project>
