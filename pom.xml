@@ -33,7 +33,7 @@
     </dependency>
   </dependencies>	
 	<build>
-		<plugin>
+		<plugins>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.1.1</version>
@@ -53,6 +53,6 @@
 						</goals>
 					</execution>
 				</executions>
-		        </plugin>
+		        </plugins>
 		</build>
   </project>
