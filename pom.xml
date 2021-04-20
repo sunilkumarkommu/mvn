@@ -53,6 +53,6 @@
 						</goals>
 					</execution>
 				</executions>
-		</plugin>
-			</build>
+		        </plugin>
+		</build>
   </project>
