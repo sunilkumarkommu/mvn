@@ -1,1 +1,2 @@
 # mvn
+mvn clean install
